@@ -23,10 +23,11 @@ async function getCredentials({
 
     const repsCredentials = await getMFACredentials(region, awsConfig);
     const credentials = {
-      accessKeyId: repsCredentials.AccessKeyId,
-      secretAccessKey: repsCredentials.SecretAccessKey,
-      sessionToken: repsCredentials.SessionToken,
-      expiration: repsCredentials.Expiration
+      Version: 1,
+      AccessKeyId: repsCredentials.AccessKeyId,
+      SecretAccessKey: repsCredentials.SecretAccessKey,
+      SessionToken: repsCredentials.SessionToken,
+      Expiration: repsCredentials.Expiration
     }
 
     cache.write(profile, credentials);
@@ -37,4 +38,4 @@ async function getCredentials({
   }
 }
 
-module.exports = getCredentials;
+module.exports.getCredentials = getCredentials;

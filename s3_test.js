@@ -1,5 +1,5 @@
 const { S3Client, ListBucketsCommand } = require('@aws-sdk/client-s3');
-const getCredentials = require('./aws-credentials');
+const { getCredentials } = require('./aws-credentials');
 const { program } = require('commander');
 
 async function main() {

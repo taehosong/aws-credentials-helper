@@ -1,5 +1,5 @@
 const { prompt } = require('inquirer');
-const { STSClient, AssumeRoleCommand } = require("@aws-sdk/client-sts");
+const { STS, STSClient, AssumeRoleCommand } = require("@aws-sdk/client-sts");
 
 
 async function readMfaCodeFromPrompt() {
@@ -18,17 +18,23 @@ async function readMfaCodeFromPrompt() {
 }
 
 async function getMFACredentials(region, awsConfig) {
+  console.log(awsConfig);
   const tokenCode = await readMfaCodeFromPrompt();
+  console.log(tokenCode);
 
   const stsClient = new STSClient({
     region: region
   });
 
+
   const command = new AssumeRoleCommand({
     RoleArn: awsConfig.role_arn,
     RoleSessionName: awsConfig.role_session_name,
     SerialNumber: awsConfig.mfa_serial,
-    TokenCode: tokenCode
+    TokenCode: tokenCode,
+    mfaCodeProvider: async (mfaSerial) => {
+      return tokenCode;
+    }
   });
 
   return stsClient.send(command).then(res => res.Credentials);
