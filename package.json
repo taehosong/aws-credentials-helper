@@ -1,6 +1,6 @@
 {
   "name": "aws-credentials-helper",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "bin": {
     "awscreds-custom": "bin/awscreds-custom.mjs"
