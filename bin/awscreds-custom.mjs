@@ -110,9 +110,10 @@ class AwsCredentialsCustom {
   }
 
   _findProfile(profile, profileName) {
-    return profileName === 'default'
-      ? profile.default
-      : profile[`profile ${profileName}`];
+    if (profileName === 'default') {
+      return profile.default;
+    }
+    return profile[`profile ${profileName}`] || profile[profileName];
   }
 
   _parseProfile(profileName) {
